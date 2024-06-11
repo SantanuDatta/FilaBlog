@@ -22,3 +22,4 @@ _ide_helper_models.php
 /.idea
 /.vscode
 /draft.yaml
+/.blueprint

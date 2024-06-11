@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->constrained();
@@ -19,13 +21,14 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('avatar_url')->nullable();
             $table->string('password');
-            $table->string('status');
+            $table->string('avatar_url')->nullable();
             $table->timestamp('last_login');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
