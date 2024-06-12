@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class RoleFactory extends Factory
 {
@@ -21,12 +20,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            Role::factory(3)
-            ->state(new Sequence(
-                ['name' => 'admin', 'description' => 'Admin Privilege'],
-                ['name' => 'staff', 'description' => 'Staff Privilege'],
-                ['name' => 'borrower', 'description' => 'Borrower Privilege'],
-            ))->create()
+            //
         ];
     }
 }
