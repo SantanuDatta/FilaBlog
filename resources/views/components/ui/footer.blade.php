@@ -1,4 +1,4 @@
-<footer class="mx-auto mt-auto w-full max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 dark:bg-neutral-800">
+<footer class="mx-auto mt-auto w-full max-w-[85rem] px-4 py-10 dark:bg-neutral-800 sm:px-6 lg:px-8">
     <!-- Grid -->
     <div class="text-center">
         <x-nav.fbrand href="#">FilaBlog</x-nav.fbrand>

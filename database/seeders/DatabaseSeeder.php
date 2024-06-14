@@ -21,38 +21,40 @@ class DatabaseSeeder extends Seeder
         Role::factory(2)
             ->state(new Sequence(
                 ['name' => 'admin', 'description' => 'Admin Privilege'],
-                ['name' => 'staff', 'description' => 'Staff Privilege'],
+                ['name' => 'blogger', 'description' => 'Blogging Privilege'],
             ))->create();
 
         $admin = User::factory()->role('admin')->create([
             'first_name' => 'Admin',
             'last_name' => 'Dev',
+            'username' => 'admindev',
             'email' => 'admin@gmail.com',
             'password' => 'developer',
         ]);
 
-        $staff = User::factory(1)->role('staff')
+        $blogger = User::factory(1)->role('blogger')
             ->state(new Sequence(
                 [
-                    'first_name' => 'Catharine',
-                    'last_name' => 'McCall',
-                    'email' => 'catherine@gmail.com',
+                    'first_name' => 'Fantasy',
+                    'last_name' => 'Warrior',
+                    'username' => 'fantasywarrior',
+                    'email' => 'fantasy@gmail.com',
                     'password' => 'staff001',
                 ],
             ))->create();
 
-        $staffs = User::factory(8)->role('staff')->create();
+        $bloggers = User::factory(8)->role('blogger')->create();
 
         $tags = Tag::factory(10)->create();
 
         $posts = Post::factory(10)
             ->recycle($tags)
-            ->recycle($staffs)
+            ->recycle($bloggers)
             ->create();
 
         $comments = Comment::factory(10)
             ->recycle($posts)
-            ->recycle($staffs)
+            ->recycle($bloggers)
             ->create();
     }
 }

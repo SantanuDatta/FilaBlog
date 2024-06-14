@@ -1,4 +1,4 @@
-<header class="z-50 flex w-11/12 flex-wrap text-sm md:flex-nowrap md:justify-start mx-auto">
+<header class="z-50 mx-auto flex w-11/12 flex-wrap text-sm md:flex-nowrap md:justify-start">
     <nav
         class="relative mx-2 mt-6 w-full max-w-[85rem] justify-between rounded-[36px] border border-gray-200 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-neutral-800 md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
         aria-label="Global"
@@ -84,7 +84,7 @@
                     :active="request()->is('/')"
                 >Blog</x-nav.link>
 
-                <x-dropdown>
+                <x-ui.dropdown>
                     <x-slot:name>Dropwown</x-slot:name>
                     <x-nav.link
                         href="/"
@@ -101,7 +101,7 @@
                         :drop="true"
                         :active="request()->is('/')"
                     >Work</x-nav.link>
-                </x-dropdown>
+                </x-ui.dropdown>
 
                 <x-nav.log
                     href="#"

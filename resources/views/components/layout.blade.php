@@ -13,13 +13,13 @@
     </head>
 
     <body class="antialiased">
-        <x-header />
+        <x-ui.header />
         <main id="content">
-            <div class="mx-auto max-w-[85rem] px-4 pb-10 pt-12 sm:px-10 md:pt-12 md:px-10 lg:px-10">
+            <div class="mx-auto max-w-[85rem] px-4 pb-10 pt-12 sm:px-10 md:px-10 md:pt-12 lg:px-10">
                 {{ $slot }}
             </div>
         </main>
-        <x-footer />
+        <x-ui.footer />
     </body>
 
 </html>

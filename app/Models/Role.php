@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Role extends Model
 {
     use HasFactory;
-    
+
     public $incrementing = false;
 
     /**
@@ -21,6 +21,10 @@ class Role extends Model
         'name',
         'description',
     ];
+
+    public const IS_ADMIN = 1;
+
+    public const IS_STAFF = 2;
 
     public function users(): HasMany
     {

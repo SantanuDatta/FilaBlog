@@ -4,12 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\AvatarProviders\UiAvatarsProvider;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     use HasFactory, Notifiable;
 
@@ -50,6 +56,35 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function getNameAttribute(): string
+    {
+        return strtolower("{$this->first_name}{$this->last_name}");
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        $role = auth()->user()->role->name;
+
+        return match ($panel->getId()) {
+            'admin' => $role == 'admin',
+            'blogger' => $role == 'blogger',
+            default => false,
+        }
+        && $this->hasVerifiedEmail();
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        $uiAvatarsProvider = new UiAvatarsProvider();
+
+        if ($this->avatar_url) {
+            return Storage::url($this->avatar_url);
+        }
+
+        return $uiAvatarsProvider->get($this);
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
@@ -58,5 +93,10 @@ class User extends Authenticatable
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
     }
 }
