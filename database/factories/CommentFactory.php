@@ -24,8 +24,8 @@ class CommentFactory extends Factory
         return [
             'user_id' => User::factory(),
             'post_id' => Post::factory(),
-            'content' => $this->faker->paragraphs(3, true),
-            'status' => $this->faker->boolean(50),
+            'content' => fake()->realText(250),
+            'status' => fake()->boolean(50),
         ];
     }
 }

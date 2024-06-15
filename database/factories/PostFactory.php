@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PostFactory extends Factory
@@ -20,15 +21,15 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->sentence(3, true);
         return [
             'user_id' => User::factory(),
-            'cover' => $this->faker->word(),
-            'title' => $this->faker->sentence(4),
-            'slug' => $this->faker->slug(),
-            'content' => $this->faker->paragraphs(3, true),
-            'published_at' => $this->faker->dateTime(),
-            'featured' => $this->faker->boolean(),
-            'status' => $this->faker->word(),
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'content' => fake()->realText(400),
+            'published_at' => fake()->dateTime(),
+            'featured' => fake()->boolean(),
+            'status' => fake()->word(),
         ];
     }
 }

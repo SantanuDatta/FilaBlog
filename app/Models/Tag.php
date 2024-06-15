@@ -24,4 +24,9 @@ class Tag extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
