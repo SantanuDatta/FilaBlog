@@ -3,10 +3,9 @@
 namespace App\Filament\Admin\Resources\TagResource\Pages;
 
 use App\Filament\Admin\Resources\TagResource;
-use Filament\Actions;
-use Filament\Resources\Pages\CreateRecord;
+use App\Filament\CreateRedirect;
 
-class CreateTag extends CreateRecord
+class CreateTag extends CreateRedirect
 {
     protected static string $resource = TagResource::class;
 }

@@ -3,17 +3,23 @@
 namespace App\Filament\Admin\Resources\TagResource\Pages;
 
 use App\Filament\Admin\Resources\TagResource;
-use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
+use App\Filament\EditRedirect;
+use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 
-class EditTag extends EditRecord
+class EditTag extends EditRedirect
 {
     protected static string $resource = TagResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Action::make('reset')
+                ->outlined()
+                ->icon('heroicon-o-arrow-path')
+                ->action(fn () => $this->fillForm()),
+            DeleteAction::make()
+                ->outlined(),
         ];
     }
 }

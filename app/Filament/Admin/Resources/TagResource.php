@@ -2,19 +2,20 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Models\Tag;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Admin\Resources\TagResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Admin\Resources\TagResource\RelationManagers;
+use App\Models\Tag;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Pages\Page;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class TagResource extends Resource
 {
@@ -26,6 +27,19 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
+                Actions::make([
+                    Action::make('fillForm')
+                        ->icon('heroicon-o-sparkles')
+                        ->color('success')
+                        ->outlined()
+                        ->action(function (Set $set, Page $livewire) {
+                            $name = fake()->name();
+                            $set('name', $name);
+                            $set('slug', str($name)->slug());
+                            $livewire->form->getState();
+                        })
+                        ->visible(fn () => config('app.env') !== 'production'),
+                ])->visibleOn('create'),
                 Section::make()
                     ->schema([
                         TextInput::make('name')
@@ -33,7 +47,7 @@ class TagResource extends Resource
                             ->lazy()
                             ->unique()
                             ->afterStateUpdated(function ($state, callable $set) {
-                                $set('slug', Str::slug($state));
+                                $set('slug', str($state)->slug());
                             }),
                         TextInput::make('slug')
                             ->disabled()
@@ -41,7 +55,7 @@ class TagResource extends Resource
                             ->required()
                             ->unique(Tag::class, 'slug', ignoreRecord: true),
                     ])
-                    ->columns(2)
+                    ->columns(2),
             ]);
     }
 
@@ -66,7 +80,10 @@ class TagResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                    Tables\Actions\DeleteAction::make(),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
