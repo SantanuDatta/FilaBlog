@@ -2,19 +2,26 @@
 
 namespace App\Filament\Admin\Resources;
 
+use App\Enums\PostStatus;
 use App\Filament\Admin\Resources\PostResource\Pages;
 use App\Models\Post;
+use App\Models\Tag;
+use App\Models\User;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
+use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -34,12 +41,19 @@ class PostResource extends Resource
                         ->icon('heroicon-o-sparkles')
                         ->color('success')
                         ->outlined()
-                        // ->action(function (Set $set, Page $livewire) {
-                        //     $title = fake()->sentence(3, true);
-                        //     $set('title', $title);
-                        //     $set('slug', Str::slug($title));
-                        //     $livewire->form->getState();
-                        // })
+                        ->action(function (Set $set, Page $livewire) {
+                            $title = fake()->sentence(3, true);
+                            $set('title', $title);
+                            $set('slug', str($title)->slug());
+                            $blogger = User::whereRelation('role', 'name', 'blogger')->first();
+                            $set('user_id', $blogger->id);
+                            $tagIds = Tag::inRandomOrder()->take(3)->pluck('id');
+                            $set('tags', $tagIds->toArray());
+                            $set('content', fake()->realText(400));
+                            $set('status', PostStatus::randomValue());
+                            $set('featured', fake()->boolean(50));
+                            $livewire->form->getState();
+                        })
                         ->visible(fn () => config('app.env') !== 'production'),
                 ])->visibleOn('create'),
                 Grid::make(3)
@@ -51,7 +65,7 @@ class PostResource extends Resource
                                         TextInput::make('title')
                                             ->required()
                                             ->lazy()
-                                            ->unique()
+                                            ->unique(Post::class, 'title', ignoreRecord: true)
                                             ->afterStateUpdated(function ($state, callable $set) {
                                                 $set('slug', str($state)->slug());
                                             }),
@@ -59,10 +73,15 @@ class PostResource extends Resource
                                             ->disabled()
                                             ->dehydrated()
                                             ->required()
-                                            ->unique(Tag::class, 'slug', ignoreRecord: true),
+                                            ->unique(Post::class, 'slug', ignoreRecord: true),
                                         RichEditor::make('content')
                                             ->required()
                                             ->columnSpanFull(),
+                                        Placeholder::make('author')
+                                            ->label('')
+                                            ->content(function ($record) {
+                                                return 'Author: '.$record->user->username;
+                                            })->visibleOn('edit'),
                                     ])->columns(2),
                             ])->columnSpan(['sm' => 2, 'md' => 2, 'xxl' => 5]),
                         Group::make()
@@ -70,11 +89,29 @@ class PostResource extends Resource
                                 Section::make()
                                     ->schema([
                                         FileUpload::make('cover'),
-                                        DateTimePicker::make('published_at'),
-                                        TextInput::make('status')
-                                            ->required(),
                                         Toggle::make('featured')
                                             ->required(),
+                                        Select::make('tags')
+                                            ->label('Tags')
+                                            ->multiple()
+                                            ->relationship('tags', 'name')
+                                            ->preload()
+                                            ->searchable(),
+                                        Select::make('status')
+                                            ->options([
+                                                'In Process' => [
+                                                    'draft' => PostStatus::Draft->getLabel(),
+                                                    'reviewing' => PostStatus::Reviewing->getLabel(),
+                                                ],
+                                                'Reviewed' => [
+                                                    'published' => PostStatus::Published->getLabel(),
+                                                    'rejected' => PostStatus::Rejected->getLabel(),
+                                                ],
+                                            ])
+                                            ->native(false)
+                                            ->required(),
+                                        Hidden::make('user_id')
+                                            ->default(auth()->id()),
                                     ]),
                             ])->columnSpan(['sm' => 2, 'md' => 1, 'xxl' => 1]),
                     ]),

@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\PostStatus;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,7 +31,14 @@ class PostFactory extends Factory
             'content' => fake()->realText(400),
             'published_at' => fake()->dateTime(),
             'featured' => fake()->boolean(),
-            'status' => fake()->word(),
+            'status' => PostStatus::randomValue(),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Post $post) {
+            $post->tags()->sync(Tag::inRandomOrder()->take(3)->pluck('id'));
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PostStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -37,6 +38,7 @@ class Post extends Model
         'user_id' => 'integer',
         'published_at' => 'timestamp',
         'featured' => 'boolean',
+        'status' => PostStatus::class,
     ];
 
     public function comments(): HasMany
@@ -52,5 +54,29 @@ class Post extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public static function booted()
+    {
+        static::creating(function ($post) {
+            $post->user_id = auth()->id();
+
+            if ($post->status === PostStatus::Publish) {
+                $post->published_at = now();
+            }
+        });
+
+        static::updating(function ($post) {
+            if ($post->status === 'published' && is_null($post->published_at)) {
+                $post->published_at = now();
+            } elseif ($post->status !== 'published') {
+                $post->published_at = null;
+            }
+        });
     }
 }

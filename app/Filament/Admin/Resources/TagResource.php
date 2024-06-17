@@ -45,7 +45,7 @@ class TagResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->lazy()
-                            ->unique()
+                            ->unique(Tag::class, 'name', ignoreRecord: true)
                             ->afterStateUpdated(function ($state, callable $set) {
                                 $set('slug', str($state)->slug());
                             }),
