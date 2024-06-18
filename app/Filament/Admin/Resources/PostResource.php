@@ -13,8 +13,8 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -25,6 +25,7 @@ use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
 
 class PostResource extends Resource
 {
@@ -74,8 +75,10 @@ class PostResource extends Resource
                                             ->dehydrated()
                                             ->required()
                                             ->unique(Post::class, 'slug', ignoreRecord: true),
-                                        RichEditor::make('content')
+                                        MarkdownEditor::make('content')
                                             ->required()
+                                            ->fileAttachmentsDisk('public')
+                                            ->fileAttachmentsDirectory('post_content')
                                             ->columnSpanFull(),
                                         Placeholder::make('author')
                                             ->label('')
@@ -88,7 +91,13 @@ class PostResource extends Resource
                             ->schema([
                                 Section::make()
                                     ->schema([
-                                        FileUpload::make('cover'),
+                                        FileUpload::make('cover')
+                                            ->image()
+                                            ->imageEditor()
+                                            ->directory('posts')
+                                            ->deleteUploadedFileUsing(function ($file) {
+                                                Storage::disk('public')->delete($file);
+                                            }),
                                         Toggle::make('featured')
                                             ->required(),
                                         Select::make('tags')
@@ -123,7 +132,7 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('cover')
+                Tables\Columns\ImageColumn::make('cover')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
@@ -155,12 +164,22 @@ class PostResource extends Resource
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
-                    Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\DeleteAction::make()
+                        ->before(function (Post $record) {
+                            Storage::disk('public')->delete($record->cover);
+                        }),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->before(function ($records) {
+                            $records->each(function ($record) {
+                                if (! is_null($record->cover)) {
+                                    Storage::disk('public')->delete($record->cover);
+                                }
+                            });
+                        }),
                 ]),
             ]);
     }

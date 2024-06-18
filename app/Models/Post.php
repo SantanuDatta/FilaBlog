@@ -66,15 +66,15 @@ class Post extends Model
         static::creating(function ($post) {
             $post->user_id = auth()->id();
 
-            if ($post->status === PostStatus::Publish) {
+            if ($post->status === PostStatus::Published) {
                 $post->published_at = now();
             }
         });
 
         static::updating(function ($post) {
-            if ($post->status === 'published' && is_null($post->published_at)) {
+            if ($post->status === PostStatus::Published && is_null($post->published_at)) {
                 $post->published_at = now();
-            } elseif ($post->status !== 'published') {
+            } elseif ($post->status !== PostStatus::Published) {
                 $post->published_at = null;
             }
         });

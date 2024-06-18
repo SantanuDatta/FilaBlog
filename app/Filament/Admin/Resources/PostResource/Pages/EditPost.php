@@ -4,7 +4,9 @@ namespace App\Filament\Admin\Resources\PostResource\Pages;
 
 use App\Filament\Admin\Resources\PostResource;
 use App\Filament\EditRedirect;
+use App\Models\Post;
 use Filament\Actions;
+use Illuminate\Support\Facades\Storage;
 
 class EditPost extends EditRedirect
 {
@@ -18,7 +20,10 @@ class EditPost extends EditRedirect
                 ->icon('heroicon-o-arrow-path')
                 ->action(fn () => $this->fillForm()),
             Actions\DeleteAction::make()
-                ->outlined(),
+                ->outlined()
+                ->before(function (Post $record) {
+                    Storage::disk('public')->delete($record->cover);
+                }),
         ];
     }
 }
