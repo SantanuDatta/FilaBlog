@@ -38,6 +38,12 @@ class PostFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Post $post) {
+            if ($post->status === PostStatus::Published) {
+                $post->published_at = now();
+            } else {
+                $post->published_at = null;
+            }
+            $post->save();
             $post->tags()->sync(Tag::inRandomOrder()->take(3)->pluck('id'));
         });
     }

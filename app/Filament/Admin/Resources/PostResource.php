@@ -42,18 +42,13 @@ class PostResource extends Resource
                         ->icon('heroicon-o-sparkles')
                         ->color('success')
                         ->outlined()
-                        ->action(function (Set $set, Page $livewire) {
-                            $title = fake()->sentence(3, true);
-                            $set('title', $title);
-                            $set('slug', str($title)->slug());
-                            $blogger = User::whereRelation('role', 'name', 'blogger')->first();
-                            $set('user_id', $blogger->id);
-                            $tagIds = Tag::inRandomOrder()->take(3)->pluck('id');
-                            $set('tags', $tagIds->toArray());
-                            $set('content', fake()->realText(400));
-                            $set('status', PostStatus::randomValue());
-                            $set('featured', fake()->boolean(50));
-                            $livewire->form->getState();
+                        ->action(function ($livewire) {
+                            $user = User::whereRelation('role', 'name', 'blogger')->first();
+                            $tags = Tag::inRandomOrder()->take(3)->pluck('id')->toArray();
+                            $post = Post::factory()->recycle($user)->make()->toArray();
+                            $livewire->form->fill(array_merge($post, [
+                                'tags' => $tags,
+                            ]));
                         })
                         ->visible(fn () => config('app.env') !== 'production'),
                 ])->visibleOn('create'),
@@ -124,7 +119,6 @@ class PostResource extends Resource
                                     ]),
                             ])->columnSpan(['sm' => 2, 'md' => 1, 'xxl' => 1]),
                     ]),
-
             ]);
     }
 
@@ -137,18 +131,19 @@ class PostResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+                    ->label('Author')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable()
+                    ->badge()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
                 Tables\Columns\IconColumn::make('featured')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('status')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('published_at')
+                    ->since()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -36,7 +36,7 @@ class Post extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'published_at' => 'timestamp',
+        'published_at' => 'datetime',
         'featured' => 'boolean',
         'status' => PostStatus::class,
     ];
@@ -64,7 +64,9 @@ class Post extends Model
     public static function booted()
     {
         static::creating(function ($post) {
-            $post->user_id = auth()->id();
+            if (auth()->check()) {
+                $post->user_id = auth()->id();
+            }
 
             if ($post->status === PostStatus::Published) {
                 $post->published_at = now();

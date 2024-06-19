@@ -24,7 +24,9 @@ class Role extends Model
 
     public const IS_ADMIN = 1;
 
-    public const IS_STAFF = 2;
+    public const IS_BLOGGER = 2;
+
+    public const IS_READER = 3;
 
     public function users(): HasMany
     {

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->longText('content');
-            $table->timestamp('published_at')->nullable();
+            $table->dateTime('published_at')->nullable();
             $table->boolean('featured')->default(false);
             $table->string('status');
             $table->timestamps();

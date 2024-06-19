@@ -18,10 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::factory(2)
+        Role::factory(3)
             ->state(new Sequence(
                 ['name' => 'admin', 'description' => 'Admin Privilege'],
                 ['name' => 'blogger', 'description' => 'Blogging Privilege'],
+                ['name' => 'reader', 'description' => 'Reading Privilege'],
             ))->create();
 
         $admin = User::factory()->role('admin')->create([
@@ -32,18 +33,17 @@ class DatabaseSeeder extends Seeder
             'password' => 'developer',
         ]);
 
-        $blogger = User::factory(1)->role('blogger')
-            ->state(new Sequence(
-                [
-                    'first_name' => 'Fantasy',
-                    'last_name' => 'Warrior',
-                    'username' => 'fantasywarrior',
-                    'email' => 'fantasy@gmail.com',
-                    'password' => 'staff001',
-                ],
-            ))->create();
+        $blogger = User::factory()->role('blogger')->create([
+            'first_name' => 'Fantasy',
+            'last_name' => 'Warrior',
+            'username' => 'fantasywarrior',
+            'email' => 'fantasy@gmail.com',
+            'password' => 'staff001',
+        ]);
 
-        $bloggers = User::factory(8)->role('blogger')->create();
+        $bloggers = User::factory(4)->role('blogger')->create();
+
+        $readers = User::factory(4)->role('reader')->create();
 
         $tags = Tag::factory(10)->create();
 
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
 
         $comments = Comment::factory(10)
             ->recycle($posts)
-            ->recycle($bloggers)
+            ->recycle($readers)
             ->create();
     }
 }

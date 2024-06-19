@@ -32,11 +32,9 @@ class TagResource extends Resource
                         ->icon('heroicon-o-sparkles')
                         ->color('success')
                         ->outlined()
-                        ->action(function (Set $set, Page $livewire) {
-                            $name = fake()->name();
-                            $set('name', $name);
-                            $set('slug', str($name)->slug());
-                            $livewire->form->getState();
+                        ->action(function ($livewire) {
+                            $data = Tag::factory()->make()->toArray();
+                            $livewire->form->fill($data);
                         })
                         ->visible(fn () => config('app.env') !== 'production'),
                 ])->visibleOn('create'),
@@ -66,7 +64,8 @@ class TagResource extends Resource
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('slug')
-                    ->searchable(),
+                    ->searchable()
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
