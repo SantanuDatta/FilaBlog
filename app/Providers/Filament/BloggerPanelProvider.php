@@ -26,6 +26,7 @@ class BloggerPanelProvider extends PanelProvider
         return $panel
             ->id('blogger')
             ->path('blogger')
+            ->profile(isSimple: false)
             ->login(Login::class)
             ->colors([
                 'primary' => Color::Indigo,
