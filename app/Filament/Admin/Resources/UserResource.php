@@ -72,14 +72,8 @@ class UserResource extends Resource
                 Tables\Columns\ImageColumn::make('avatar_url')
                     ->circular()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('first_name')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('last_name')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('username')
-                    ->searchable(),
+                    ->searchable(['first_name', 'last_name']),
                 Tables\Columns\TextColumn::make('role.name')
                     ->badge()
                     ->sortable(),

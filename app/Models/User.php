@@ -99,4 +99,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function isBlogger(): bool
+    {
+        return $this->role_id === Role::IS_BLOGGER;
+    }
 }

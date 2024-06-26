@@ -4,10 +4,14 @@ namespace App\Filament\Blogger\Resources;
 
 use App\Filament\Blogger\Resources\TagResource\Pages;
 use App\Models\Tag;
-use Filament\Forms;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class TagResource extends Resource
@@ -20,10 +24,33 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required(),
+                Actions::make([
+                    Action::make('fillForm')
+                        ->icon('heroicon-o-sparkles')
+                        ->color('success')
+                        ->outlined()
+                        ->action(function ($livewire) {
+                            $data = Tag::factory()->make()->toArray();
+                            $livewire->form->fill($data);
+                        })
+                        ->visible(fn () => config('app.env') !== 'production'),
+                ])->visibleOn('create'),
+                Section::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->lazy()
+                            ->unique(Tag::class, 'name', ignoreRecord: true)
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('slug', str($state)->slug());
+                            }),
+                        TextInput::make('slug')
+                            ->disabled()
+                            ->dehydrated()
+                            ->required()
+                            ->unique(Tag::class, 'slug', ignoreRecord: true),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -31,16 +58,16 @@ class TagResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->badge()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('slug')
+                    ->searchable()
+                    ->badge(),
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
