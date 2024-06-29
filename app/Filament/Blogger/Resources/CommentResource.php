@@ -5,10 +5,12 @@ namespace App\Filament\Blogger\Resources;
 use App\Filament\Blogger\Resources\CommentResource\Pages;
 use App\Models\Comment;
 use Filament\Forms;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CommentResource extends Resource
 {
@@ -20,17 +22,23 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'id')
-                    ->required(),
-                Forms\Components\Select::make('post_id')
-                    ->relationship('post', 'title')
-                    ->required(),
-                Forms\Components\Textarea::make('content')
-                    ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('status')
-                    ->required(),
+                Section::make()
+                    ->schema([
+                        Forms\Components\Placeholder::make('author')
+                            ->label('')
+                            ->content(function ($record) {
+                                return 'User: '.$record->user->username;
+                            })->visibleOn('edit'),
+                        Forms\Components\Placeholder::make('Post')
+                            ->label('')
+                            ->content(function ($record) {
+                                return 'Post: '.$record->post->title;
+                            }),
+                        Forms\Components\MarkdownEditor::make('content')
+                            ->required()
+                            ->columnSpanFull(),
+                        Forms\Components\Toggle::make('status'),
+                    ])->columns(2),
             ]);
     }
 
@@ -82,8 +90,21 @@ class CommentResource extends Resource
     {
         return [
             'index' => Pages\ListComments::route('/'),
-            'create' => Pages\CreateComment::route('/create'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        if (auth()->user()->isBlogger()) {
+            return Comment::whereRelation('post', 'user_id', auth()->id());
+        }
+
+        return parent::getEloquentQuery();
     }
 }

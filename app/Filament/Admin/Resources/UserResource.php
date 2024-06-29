@@ -47,6 +47,7 @@ class UserResource extends Resource
                                                 ->required(),
                                             Forms\Components\TextInput::make('password')
                                                 ->password()
+                                                ->revealable()
                                                 ->required(),
                                         ])->columns(2),
                                     ]),

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Blogger\Pages\Auth\EditProfile;
 use App\Filament\Blogger\Pages\Auth\Login;
 use App\Filament\Blogger\Widgets\AccountWidget;
 use Filament\Http\Middleware\Authenticate;
@@ -26,7 +27,7 @@ class BloggerPanelProvider extends PanelProvider
         return $panel
             ->id('blogger')
             ->path('blogger')
-            ->profile(isSimple: false)
+            ->profile(EditProfile::class, isSimple: false)
             ->login(Login::class)
             ->colors([
                 'primary' => Color::Indigo,

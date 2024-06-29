@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Admin\Pages\Auth\EditProfile;
 use App\Filament\Admin\Pages\Auth\Login;
 use App\Filament\Admin\Widgets\AccountWidget;
 use Filament\Http\Middleware\Authenticate;
@@ -41,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 AccountWidget::class,
             ])
-            ->profile(isSimple: false)
+            ->profile(EditProfile::class, isSimple: false)
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
