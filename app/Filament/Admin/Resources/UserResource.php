@@ -2,16 +2,18 @@
 
 namespace App\Filament\Admin\Resources;
 
-use App\Filament\Admin\Resources\UserResource\Pages;
-use App\Models\User;
 use Filament\Forms;
+use App\Models\User;
+use Filament\Tables;
+use Filament\Forms\Form;
+use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
+use Filament\AvatarProviders\UiAvatarsProvider;
+use App\Filament\Admin\Resources\UserResource\Pages;
+use App\Rules\UniqueUsername;
 
 class UserResource extends Resource
 {
@@ -31,11 +33,17 @@ class UserResource extends Resource
                                     ->schema([
                                         Group::make()->schema([
                                             Forms\Components\TextInput::make('first_name')
-                                                ->required(),
+                                                ->maxLength(255)
+                                                ->required()
+                                                ->lazy(),
                                             Forms\Components\TextInput::make('last_name')
-                                                ->required(),
+                                                ->maxLength(255)
+                                                ->required()
+                                                ->lazy(),
                                             Forms\Components\TextInput::make('username')
-                                                ->required(),
+                                                ->maxLength(255)
+                                                ->required()
+                                                ->rule(new UniqueUsername()),
                                         ])->columns(3),
                                         Group::make()->schema([
                                             Forms\Components\TextInput::make('email')
@@ -71,8 +79,11 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar_url')
+                    ->label('Avatar')
                     ->circular()
-                    ->searchable(),
+                    ->searchable()
+                    ->defaultImageUrl(fn ($record) => $record->avatar_url
+                        ?: (new UiAvatarsProvider())->get($record)),
                 Tables\Columns\TextColumn::make('username')
                     ->searchable(['first_name', 'last_name']),
                 Tables\Columns\TextColumn::make('role.name')

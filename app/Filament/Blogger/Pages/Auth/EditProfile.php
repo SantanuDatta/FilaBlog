@@ -9,6 +9,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Auth\EditProfile as BaseProfile;
+use Filament\Support\Enums\Alignment;
 use Illuminate\Support\Facades\Storage;
 
 class EditProfile extends BaseProfile
@@ -55,18 +56,27 @@ class EditProfile extends BaseProfile
     protected static function getFirstNameFormComponent()
     {
         return TextInput::make('first_name')
+            ->maxLength(255)
             ->required();
     }
 
     protected static function getLastNameFormComponent()
     {
         return TextInput::make('last_name')
+            ->maxLength(255)
             ->required();
     }
 
     protected static function getUserNameFormComponent()
     {
         return TextInput::make('username')
+            ->maxLength(255)
+            ->unique(ignoreRecord: true)
             ->required();
+    }
+
+    public function getFormActionsAlignment(): string|Alignment
+    {
+        return Alignment::End;
     }
 }
