@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Filament\AvatarProviders\UiAvatarsProvider;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
@@ -54,6 +53,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'last_login' => 'datetime',
         ];
     }
 
@@ -72,6 +72,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
             default => false,
         }
         && $this->hasVerifiedEmail();
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 
     public function getFilamentAvatarUrl(): ?string

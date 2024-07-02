@@ -5,7 +5,6 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\CommentResource\Pages;
 use App\Models\Comment;
 use Filament\Forms;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,12 +23,12 @@ class CommentResource extends Resource
             ->schema([
                 Section::make()
                     ->schema([
-                        Placeholder::make('author')
+                        Forms\Components\Placeholder::make('author')
                             ->label('')
                             ->content(function ($record) {
                                 return 'User: '.$record->user->username;
                             })->visibleOn('edit'),
-                        Placeholder::make('Post')
+                        Forms\Components\Placeholder::make('Post')
                             ->label('')
                             ->content(function ($record) {
                                 return 'Post: '.$record->post->title;

@@ -2,18 +2,17 @@
 
 namespace App\Filament\Admin\Resources;
 
-use Filament\Forms;
+use App\Filament\Admin\Resources\UserResource\Pages;
 use App\Models\User;
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
+use Filament\AvatarProviders\UiAvatarsProvider;
+use Filament\Forms;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
-use Filament\AvatarProviders\UiAvatarsProvider;
-use App\Filament\Admin\Resources\UserResource\Pages;
-use App\Rules\UniqueUsername;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 
 class UserResource extends Resource
 {
@@ -43,7 +42,7 @@ class UserResource extends Resource
                                             Forms\Components\TextInput::make('username')
                                                 ->maxLength(255)
                                                 ->required()
-                                                ->rule(new UniqueUsername()),
+                                                ->unique(ignoreRecord: true),
                                         ])->columns(3),
                                         Group::make()->schema([
                                             Forms\Components\TextInput::make('email')
@@ -54,9 +53,18 @@ class UserResource extends Resource
                                                 ->native(false)
                                                 ->required(),
                                             Forms\Components\TextInput::make('password')
+                                                ->label('New Password')
                                                 ->password()
+                                                ->same('passwordConfirmation')
                                                 ->revealable()
-                                                ->required(),
+                                                ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                                                ->dehydrated(fn (?string $state): bool => filled($state))
+                                                ->required(fn (string $operation): bool => $operation === 'create'),
+                                            Forms\Components\TextInput::make('passwordConfirmation')
+                                                ->revealable()
+                                                ->password()
+                                                ->dehydrated(false)
+                                                ->required(fn (string $operation): bool => $operation === 'create'),
                                         ])->columns(2),
                                     ]),
                             ])->columnSpan(['sm' => 2, 'md' => 2, 'xxl' => 5]),
@@ -68,6 +76,13 @@ class UserResource extends Resource
                                             ->label('')
                                             ->avatar()
                                             ->extraAttributes(['style' => 'display: flex; justify-content: center;']),
+                                        Forms\Components\Placeholder::make('last_login')
+                                            ->label('')
+                                            ->content(function ($record) {
+                                                return isset($record->last_login) && $record->last_login
+                                                    ? 'Last Logged In: ' . $record->last_login->diffForHumans()
+                                                    : 'Last Logged In: N/A';
+                                            }),
                                     ]),
                             ])->columnSpan(['sm' => 2, 'md' => 1, 'xxl' => 1]),
                     ]),
@@ -96,7 +111,7 @@ class UserResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('last_login')
-                    ->dateTime()
+                    ->since()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
