@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "^3.2.92",
-        "laravel/framework": "^11.13.0",
+        "laravel/framework": "^11.14.0",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
@@ -16,7 +16,7 @@
         "fakerphp/faker": "^1.23.1",
         "laravel-shift/blueprint": "^2.10",
         "laravel/pint": "^1.16.1",
-        "laravel/sail": "^1.30.0",
+        "laravel/sail": "^1.30.1",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.1.1",
         "pestphp/pest": "^2.34.8",
