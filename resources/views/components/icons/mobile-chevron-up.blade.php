@@ -1,7 +1,7 @@
 <svg
     aria-hidden="true"
+    x-bind:class="{ 'rotate-180': open }"
     {{ $attributes->merge(['class' => 'h-5 w-5 flex-none']) }}
-    
     viewBox="0 0 20 20"
     fill="currentColor"
 >

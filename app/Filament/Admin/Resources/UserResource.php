@@ -80,7 +80,7 @@ class UserResource extends Resource
                                             ->label('')
                                             ->content(function ($record) {
                                                 return isset($record->last_login) && $record->last_login
-                                                    ? 'Last Logged In: ' . $record->last_login->diffForHumans()
+                                                    ? 'Last Logged In: '.$record->last_login->diffForHumans()
                                                     : 'Last Logged In: N/A';
                                             }),
                                     ]),

@@ -5,12 +5,12 @@
     x-data="{ open: false }"
 >
     <button
-        class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 hover:bg-slate-500 dark:hover:bg-slate-300 text-slate-700 dark:text-slate-100"
+        class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-bold leading-7 text-slate-800 hover:bg-slate-500 dark:text-slate-100 dark:hover:bg-slate-300"
         type="button"
         x-on:click.stop="open = !open"
         x-bind:aria-expanded="open"
     >
-        {{ $title }} <x-icons.mobile-chevron-up x-bind:class="{ 'rotate-180': open }"/>
+        {{ $title }} <x-icons.mobile-chevron-up />
     </button>
     <div
         class="mt-2 space-y-2"

@@ -1,1 +1,1 @@
-@livewireScripts
+<livewire:scripts />

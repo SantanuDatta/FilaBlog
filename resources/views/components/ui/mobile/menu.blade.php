@@ -8,12 +8,9 @@
     x-transition:leave-start="translate-x-0"
     x-transition:leave-end="translate-x-full"
 >
+    <div class="fixed inset-0 z-10" x-on:click.away="open = false"></div>
     <div
-        class="fixed inset-0 z-10"
-        x-on:click.away="open = false"
-    ></div>
-    <div
-        class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-100 dark:bg-slate-700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-100 px-6 py-6 dark:bg-slate-700 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-between">
                 <x-ui.partials.logo
@@ -28,24 +25,11 @@
                 x-on:click="open = false"
             >
                 <span class="sr-only">Close menu</span>
-                <svg
-                    class="h-6 w-6"
-                    aria-hidden="true"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M6 18L18 6M6 6l12 12"
-                    ></path>
-                </svg>
+                <x-icons.hamburger-close />
             </button>
         </div>
         <div class="mt-6 flow-root">
-            <div class="-my-6 divide-y">
+            <div class="-my-6">
                 {{ $slot }}
             </div>
         </div>

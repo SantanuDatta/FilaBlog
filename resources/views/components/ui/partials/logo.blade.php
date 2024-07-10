@@ -1,14 +1,10 @@
-@props(['src', 'alt', 'href'])
+@props(['src', 'alt'])
 
-    <a
-        class="-m-1.5 p-1.5"
-        href="{{ $href }}"
-        wire.navigate.hover
+<a wire.navigate.hover {{ $attributes->merge(['class' => '-m-1.5 p-1.5']) }}>
+    <span class="sr-only">{{ $alt }}</span>
+    <img
+        class="h-8 w-auto"
+        src="{{ $src }}"
+        alt="{{ $alt }}"
     >
-        <span class="sr-only">{{ $alt }}</span>
-        <img
-            class="h-8 w-auto"
-            src="{{ $src }}"
-            alt="{{ $alt }}"
-        >
-    </a>
+</a>

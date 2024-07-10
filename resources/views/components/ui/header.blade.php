@@ -1,12 +1,9 @@
 <header
-    class="bg-slate-100 dark:bg-slate-800"
+    class="absolute inset-x-0 top-0 z-50"
     x-data="{ open: false }"
     x-on:keydown.window.escape="open = false"
 >
-    <nav
-        class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
-        aria-label="Global"
-    >
+    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
             <x-ui.partials.logo
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -31,10 +28,7 @@
             </x-ui.partials.dropdown>
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <x-ui.partials.links
-                class="text-sm font-semibold leading-6 text-gray-900"
-                href="#"
-            >Log in <span aria-hidden="true">→</span>
+            <x-ui.partials.links href="#">Log in <span aria-hidden="true">→</span>
             </x-ui.partials.links>
         </div>
     </nav>
@@ -44,17 +38,16 @@
             <x-ui.mobile.links href="#">Products</x-ui.mobile.links>
             <x-ui.mobile.links href="#">Features</x-ui.mobile.links>
             <x-ui.mobile.links href="#">Marketplace</x-ui.mobile.links>
+            <x-ui.mobile.dropdown>
+                <x-slot:title>Company</x-slot:title>
+                <x-ui.mobile.dropdown-items href="#">About Us</x-ui.mobile.dropdown-items>
+                <x-ui.mobile.dropdown-items href="#">Careers</x-ui.mobile.dropdown-items>
+                <x-ui.mobile.dropdown-items href="#">Support</x-ui.mobile.dropdown-items>
+                <x-ui.mobile.dropdown-items href="#">Press</x-ui.mobile.dropdown-items>
+            </x-ui.mobile.dropdown>
         </div>
-        <x-ui.mobile.dropdown>
-            <x-slot:title>Company</x-slot:title>
-            <x-ui.mobile.dropdown-items href="#">About Us</x-ui.mobile.dropdown-items>
-            <x-ui.mobile.dropdown-items href="#">Careers</x-ui.mobile.dropdown-items>
-            <x-ui.mobile.dropdown-items href="#">Support</x-ui.mobile.dropdown-items>
-            <x-ui.mobile.dropdown-items href="#">Press</x-ui.mobile.dropdown-items>
-        </x-ui.mobile.dropdown>
-
-        <div class="py-6">
-            <x-ui.mobile.links class="divide-slate-500/10 dark:divide-slate-100/90" href="#">Log in <span aria-hidden="true">→</span></x-ui.mobile.links>
+        <div class="divide-slate-500/10 border-t dark:divide-slate-100/50">
+            <x-ui.mobile.links href="#">Log in <span aria-hidden="true">→</span></x-ui.mobile.links>
         </div>
     </x-ui.mobile.menu>
 </header>
