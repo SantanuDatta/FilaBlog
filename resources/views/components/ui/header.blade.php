@@ -35,19 +35,20 @@
 
     <x-ui.mobile.menu>
         <div class="space-y-2 py-6">
-            <x-ui.mobile.links href="#">Products</x-ui.mobile.links>
-            <x-ui.mobile.links href="#">Features</x-ui.mobile.links>
-            <x-ui.mobile.links href="#">Marketplace</x-ui.mobile.links>
-            <x-ui.mobile.dropdown>
+            <x-ui.partials.links type="mobile" href="#">Products</x-ui.partials.links>
+            <x-ui.partials.links type="mobile" href="#">Features</x-ui.partials.links>
+            <x-ui.partials.links type="mobile" href="#">Marketplace</x-ui.partials.links>
+            <x-ui.partials.dropdown mobile>
                 <x-slot:title>Company</x-slot:title>
-                <x-ui.mobile.dropdown-items href="#">About Us</x-ui.mobile.dropdown-items>
-                <x-ui.mobile.dropdown-items href="#">Careers</x-ui.mobile.dropdown-items>
-                <x-ui.mobile.dropdown-items href="#">Support</x-ui.mobile.dropdown-items>
-                <x-ui.mobile.dropdown-items href="#">Press</x-ui.mobile.dropdown-items>
-            </x-ui.mobile.dropdown>
+                <x-ui.partials.dropdown-items type="mobile" href="#">About Us</x-ui.partials.dropdown-items>
+                <x-ui.partials.dropdown-items type="mobile" href="#">Careers</x-ui.partials.dropdown-items>
+                <x-ui.partials.dropdown-items type="mobile" href="#">Support</x-ui.partials.dropdown-items>
+                <x-ui.partials.dropdown-items type="mobile" href="#">Press</x-ui.partials.dropdown-items>
+            </x-ui.partials.dropdown>
         </div>
-        <div class="divide-slate-500/10 border-t dark:divide-slate-100/50">
-            <x-ui.mobile.links href="#">Log in <span aria-hidden="true">→</span></x-ui.mobile.links>
+        <div class="space-y-2 divide-slate-500/10 border-t dark:divide-slate-100/50">
+            <x-ui.partials.links type="mobile" href="#">Log in <span
+                    aria-hidden="true">→</span></x-ui.partials.links>
         </div>
     </x-ui.mobile.menu>
 </header>

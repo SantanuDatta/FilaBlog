@@ -1,8 +1,11 @@
+@props(['mobile' => false])
+
 <svg
     aria-hidden="true"
     {{ $attributes->merge([
-        'class' => 'h-5 w-5 flex-none font-bold text-slate-800 dark:text-slate-100',
+        'class' => 'h-5 w-5 flex-none ' . ($mobile ? '' : 'font-bold text-slate-800 dark:text-slate-100'),
     ]) }}
+    x-bind:class="{{ $mobile ? "{ 'rotate-180': open }" : '{}' }}"
     viewBox="0 0 20 20"
     fill="currentColor"
 >

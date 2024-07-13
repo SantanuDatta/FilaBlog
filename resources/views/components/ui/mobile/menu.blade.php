@@ -25,7 +25,7 @@
                 x-on:click="open = false"
             >
                 <span class="sr-only">Close menu</span>
-                <x-icons.hamburger-close />
+                <x-icons.hamburger-menu close />
             </button>
         </div>
         <div class="mt-6 flow-root">
