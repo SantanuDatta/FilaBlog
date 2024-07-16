@@ -9,19 +9,19 @@
     </div>
     <div class="max-w-xl">
         <div class="mt-8 flex items-center gap-x-4 text-xs">
-            <time class="text-gray-500" datetime="2020-03-16">Mar 16, 2020</time>
-            <a class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
+            <time class="text-slate-600 dark:text-slate-300" datetime="2020-03-16">Mar 16, 2020</time>
+            <a class="relative z-10 rounded-full bg-indigo-600 px-3 py-1.5 font-semibold text-slate-800 hover:bg-indigo-500 dark:bg-indigo-600 dark:text-slate-100"
                 href="#"
             >Marketing</a>
         </div>
         <div class="group relative">
-            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+            <h3 class="mt-3 text-lg font-semibold leading-6 text-slate-800 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-200">
                 <a href="#">
                     <span class="absolute inset-0"></span>
                     Boost your conversion rate
                 </a>
             </h3>
-            <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">Illo sint voluptas. Error
+            <p class="mt-5 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-300">Illo sint voluptas. Error
                 voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus
                 unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
         </div>
@@ -32,13 +32,13 @@
                 alt=""
             >
             <div class="text-sm leading-6">
-                <p class="font-semibold text-gray-900">
+                <p class="font-semibold text-slate-800 dark:text-slate-100">
                     <a href="#">
                         <span class="absolute inset-0"></span>
                         Michael Foster
                     </a>
                 </p>
-                <p class="text-gray-600">Co-Founder / CTO</p>
+                <p class="text-slate-600 dark:text-slate-300">Co-Founder / CTO</p>
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@
         "barryvdh/laravel-debugbar": "^3.13.5",
         "barryvdh/laravel-ide-helper": "^3.1",
         "fakerphp/faker": "^1.23.1",
+        "larastan/larastan": "^2.9",
         "laravel-shift/blueprint": "^2.10",
         "laravel/pint": "^1.16.2",
         "laravel/sail": "^1.30.2",
@@ -42,6 +43,11 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models --nowrite"
+        ],
+        "post-install-cmd": [
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models --nowrite"

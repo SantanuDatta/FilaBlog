@@ -12,6 +12,7 @@
             {{ $slot }}
         </main>
         <x-layouts.header.scripts />
+        <x-ui.footer />
     </body>
 
 </html>
