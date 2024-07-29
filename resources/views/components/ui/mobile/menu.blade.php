@@ -1,16 +1,25 @@
-<div
-    class="lg:hidden"
-    x-show="open"
-    x-transition:enter="transition ease-out duration-200"
-    x-transition:enter-start="translate-x-full"
-    x-transition:enter-end="translate-x-0"
-    x-transition:leave="transition ease-in duration-150"
-    x-transition:leave-start="translate-x-0"
-    x-transition:leave-end="translate-x-full"
->
-    <div class="fixed inset-0 z-10" x-on:click.away="open = false"></div>
+<div class="lg:hidden" x-cloak>
     <div
-        class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-100 px-6 py-6 dark:bg-slate-700 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10">
+        class="fixed inset-0 z-40 transition-opacity duration-300 ease-linear"
+        x-show="open"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        x-on:click.away="open = false"
+    ></div>
+    <div
+        class="fixed inset-y-0 right-0 z-40 w-full transform overflow-y-auto bg-slate-100 px-6 py-6 transition-transform duration-300 ease-in-out dark:bg-slate-700 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10"
+        x-show="open"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="translate-x-full"
+        x-transition:enter-end="translate-x-0"
+        x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="translate-x-full"
+    >
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-between">
                 <x-ui.partials.logo

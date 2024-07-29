@@ -6,8 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "filament/filament": "^3.2.95",
-        "laravel/framework": "^11.17.0",
+        "filament/filament": "^3.2.96",
+        "laravel/framework": "^11.18.1",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
