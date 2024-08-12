@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html class="h-full bg-slate-50 dark:bg-slate-800" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="h-full" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
     <head>
         <x-layouts.header.meta />
         <title>{{ $title ?? 'Page Title' }}</title>
     </head>
 
-    <body class="min-h-screen antialiased md:subpixel-antialiased">
+    <body class="mx-auto max-w-6xl bg-slate-50 antialiased dark:bg-slate-900 md:subpixel-antialiased">
         <x-ui.header />
         <main id="main" aria-labelledby="main website content">
             {{ $slot }}
         </main>
         <x-layouts.header.scripts />
-        <x-ui.footer />
     </body>
 
 </html>

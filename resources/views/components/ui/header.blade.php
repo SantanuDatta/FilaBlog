@@ -1,56 +1,32 @@
 <header
-    class="absolute inset-x-0 top-0 z-50"
+    class=""
     x-data="{ open: false }"
     x-on:keydown.window.escape="open = false"
 >
-    <div class="mx-auto max-w-7xl">
-        <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-            <div class="flex lg:flex-1">
-                <x-ui.partials.logo
+    <nav class="flex items-center justify-between px-6 lg:px-0">
+        <div class="flex lg:flex-1">
+            <x-ui.partials.logo
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                     href="#"
                     alt="Your Company"
                 />
-            </div>
-            <div class="flex lg:hidden">
-                <x-ui.mobile.button x-on:click="open = true" />
-            </div>
-            <div class="hidden lg:flex lg:gap-x-12">
-                <x-ui.partials.links href="#">Products</x-ui.partials.links>
-                <x-ui.partials.links href="#">Features</x-ui.partials.links>
-                <x-ui.partials.links href="#">Marketplace</x-ui.partials.links>
-                <x-ui.partials.dropdown>
-                    <x-slot:title>Company</x-slot:title>
-                    <x-ui.partials.dropdown-items href="#">About Us</x-ui.partials.dropdown-items>
-                    <x-ui.partials.dropdown-items href="#">Careers</x-ui.partials.dropdown-items>
-                    <x-ui.partials.dropdown-items href="#">Support</x-ui.partials.dropdown-items>
-                    <x-ui.partials.dropdown-items href="#">Press</x-ui.partials.dropdown-items>
-                    <x-ui.partials.dropdown-items href="#">Blog</x-ui.partials.dropdown-items>
-                </x-ui.partials.dropdown>
-            </div>
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                <x-ui.partials.links href="#">Log in <span aria-hidden="true">→</span>
-                </x-ui.partials.links>
-            </div>
-        </nav>
-    </div>
-
-    <x-ui.mobile.menu>
-        <div class="space-y-2 py-6">
-            <x-ui.partials.links type="mobile" href="#">Products</x-ui.partials.links>
-            <x-ui.partials.links type="mobile" href="#">Features</x-ui.partials.links>
-            <x-ui.partials.links type="mobile" href="#">Marketplace</x-ui.partials.links>
-            <x-ui.partials.dropdown mobile>
-                <x-slot:title>Company</x-slot:title>
-                <x-ui.partials.dropdown-items type="mobile" href="#">About Us</x-ui.partials.dropdown-items>
-                <x-ui.partials.dropdown-items type="mobile" href="#">Careers</x-ui.partials.dropdown-items>
-                <x-ui.partials.dropdown-items type="mobile" href="#">Support</x-ui.partials.dropdown-items>
-                <x-ui.partials.dropdown-items type="mobile" href="#">Press</x-ui.partials.dropdown-items>
-            </x-ui.partials.dropdown>
         </div>
-        <div class="space-y-2 divide-slate-500/10 border-t dark:divide-slate-100/50">
-            <x-ui.partials.links type="mobile" href="#">Log in <span
-                    aria-hidden="true">→</span></x-ui.partials.links>
+        <div class="flex md:hidden lg:hidden">
+            <x-ui.mobile.button x-on:click="open = true" />
+        </div>
+        <div class="hidden md:flex md:gap-x-4 lg:flex lg:gap-x-6">
+            <x-ui.partials.links>Blog</x-ui.partials.links>
+            <x-ui.partials.links>Projects</x-ui.partials.links>
+            <x-ui.partials.links>About</x-ui.partials.links>
+            <x-ui.partials.links>Newsletter</x-ui.partials.links>
+        </div>
+    </nav>
+    <x-ui.mobile.menu>
+        <div class="space-y-6 py-6 flex flex-col md:flex-row items-center mx-auto">
+            <x-ui.partials.links type="mobile" href="#">Blog</x-ui.partials.links>
+            <x-ui.partials.links type="mobile" href="#">Projects</x-ui.partials.links>
+            <x-ui.partials.links type="mobile" href="#">About</x-ui.partials.links>
+            <x-ui.partials.links type="mobile" href="#">Newsletter</x-ui.partials.links>
         </div>
     </x-ui.mobile.menu>
 </header>
