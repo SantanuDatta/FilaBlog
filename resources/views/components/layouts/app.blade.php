@@ -11,6 +11,7 @@
         <main id="main" aria-labelledby="main website content">
             {{ $slot }}
         </main>
+        <x-ui.footer />
         <x-layouts.header.scripts />
     </body>
 
