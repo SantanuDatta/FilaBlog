@@ -1,5 +1,7 @@
-<div class="flex items-center justify-between border-t-2 border-slate-600 py-8 dark:border-slate-400">
-    <div class="text-slate-600 dark:text-slate-300">&copy; 2021 - {{ date('Y') }}. All rights reserved.</div>
+<div
+    class="flex flex-col-reverse items-center gap-3 border-t-2 border-slate-600 px-6 py-6 dark:border-slate-400 md:flex-row md:justify-between lg:px-0 lg:py-8">
+    <div class="space-y-1 text-slate-600 dark:text-slate-300">&copy; 2021 - {{ date('Y') }}. All rights reserved.
+    </div>
     <div class="flex items-center space-x-6 text-slate-600 dark:text-slate-300">
         <a class="transition duration-300 hover:text-slate-500 hover:dark:text-slate-200" href="#"><span
                 class="sr-only"
