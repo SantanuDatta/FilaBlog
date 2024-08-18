@@ -2,7 +2,10 @@
     <section id="banner-section" aria-labelledby="Home Page Banner">
         <x-sections.banner>The Blog</x-sections.banner>
     </section>
-    <section id="latest-blog" aria-labelledby="Home Page Latest Blog">
-        <x-sections.blog />
+    <section id="latest-blog" aria-labelledby="Home Page Latest Blogs">
+        <x-sections.latest-blog title="Latest Blog Posts" />
+    </section>
+    <section id="all-blog" aria-labelledby="Home Page All Blogs">
+        <x-sections.all-blog title="All Blog Posts" />
     </section>
 </x-layouts.app>
