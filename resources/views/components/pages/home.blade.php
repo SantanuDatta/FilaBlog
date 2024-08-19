@@ -1,6 +1,6 @@
 <x-layouts.app title="Home">
     <section id="banner-section" aria-labelledby="Home Page Banner">
-        <x-sections.banner>The Blog</x-sections.banner>
+        <x-sections.banner title="The Blog" />
     </section>
     <section id="latest-blog" aria-labelledby="Home Page Latest Blogs">
         <x-sections.latest-blog title="Latest Blog Posts" />
