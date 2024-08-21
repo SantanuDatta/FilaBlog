@@ -6,8 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "filament/filament": "^3.2.102",
-        "laravel/framework": "^11.20.0",
+        "filament/filament": "^3.2.106",
+        "laravel/framework": "^11.21.0",
         "laravel/tinker": "^2.9"
     },
     "require-dev": {
@@ -20,7 +20,7 @@
         "laravel/sail": "^1.31.1",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.4.0",
-        "pestphp/pest": "^2.35.0",
+        "pestphp/pest": "^2.35.1",
         "pestphp/pest-plugin-laravel": "^2.4"
     },
     "autoload": {
