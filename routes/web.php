@@ -13,3 +13,7 @@ Route::get('/projects', function () {
 Route::get('/post', function () {
     return view('components.pages.post');
 });
+
+Route::get('/newsletter', function(){
+    return view('components.pages.newsletter');
+});

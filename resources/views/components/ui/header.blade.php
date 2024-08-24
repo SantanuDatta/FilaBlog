@@ -6,10 +6,10 @@
     <nav class="flex items-center justify-between px-6 lg:px-0">
         <div class="flex lg:flex-1">
             <x-ui.partials.logo
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    href="#"
-                    alt="Your Company"
-                />
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                href="#"
+                alt="Your Company"
+            />
         </div>
         <div class="flex md:hidden lg:hidden">
             <x-ui.mobile.button x-on:click="open = true" />
@@ -22,7 +22,7 @@
         </div>
     </nav>
     <x-ui.mobile.menu>
-        <div class="space-y-6 py-6 flex flex-col md:flex-row items-center mx-auto">
+        <div class="mx-auto flex flex-col items-center space-y-6 py-6 md:flex-row">
             <x-ui.partials.links type="mobile" href="#">Blog</x-ui.partials.links>
             <x-ui.partials.links type="mobile" href="#">Projects</x-ui.partials.links>
             <x-ui.partials.links type="mobile" href="#">About</x-ui.partials.links>

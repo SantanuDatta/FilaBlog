@@ -1,4 +1,8 @@
-<x-sections.partials.heading class="text-xl" title="Latest Post" />
+<x-sections.partials.heading
+    class="text-xl"
+    title="Latest Post"
+    divClass="px-0 md:pt-0"
+/>
 
 <div class="flex max-h-80 flex-col space-y-4">
     <a href="#">

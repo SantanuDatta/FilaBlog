@@ -1,4 +1,4 @@
-<div class="row-span-12 md:row-span-12 col-span-12 flex flex-col items-start space-y-3 md:col-span-6">
+<div class="row-span-12 md:row-span-12 col-span-12 flex flex-col items-start space-y-3 md:space-y-4 md:col-span-6">
     <img
         class="h-auto w-full rounded-lg"
         src="https://placehold.co/600x200"
@@ -74,7 +74,7 @@
 </div>
 
 <div
-    class="row-span-12 md:row-span-12 col-span-12 items-start space-y-3 md:col-span-12 md:inline-flex md:space-x-6 md:space-y-0">
+    class="row-span-12 col-span-12 items-start space-y-3 md:col-span-12 md:row-span-4 md:inline-flex md:space-x-6 md:space-y-0">
     <img
         class="h-auto w-full rounded-lg md:w-1/2"
         src="https://placehold.co/600x200"
