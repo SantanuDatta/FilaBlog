@@ -7,7 +7,7 @@
         <div class="flex lg:flex-1">
             <x-ui.partials.logo
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                href="#"
+                href="{{ route('home') }}"
                 alt="Your Company"
             />
         </div>
@@ -15,7 +15,7 @@
             <x-ui.mobile.button x-on:click="open = true" />
         </div>
         <div class="hidden md:flex md:gap-x-4 lg:flex lg:gap-x-6">
-            <x-ui.partials.links>Blog</x-ui.partials.links>
+            <x-ui.partials.links href="{{ route('home') }}" :active="request()->routeIs('home')">Blog</x-ui.partials.links>
             <x-ui.partials.links>Projects</x-ui.partials.links>
             <x-ui.partials.links>About</x-ui.partials.links>
             <x-ui.partials.links>Newsletter</x-ui.partials.links>
@@ -23,10 +23,10 @@
     </nav>
     <x-ui.mobile.menu>
         <div class="mx-auto flex flex-col items-center space-y-6 py-6 md:flex-row">
-            <x-ui.partials.links type="mobile" href="#">Blog</x-ui.partials.links>
-            <x-ui.partials.links type="mobile" href="#">Projects</x-ui.partials.links>
-            <x-ui.partials.links type="mobile" href="#">About</x-ui.partials.links>
-            <x-ui.partials.links type="mobile" href="#">Newsletter</x-ui.partials.links>
+            <x-ui.partials.links href="{{ route('home') }}" :active="request()->routeIs('home')">Blog</x-ui.partials.links>
+            <x-ui.partials.links href="#">Projects</x-ui.partials.links>
+            <x-ui.partials.links href="#">About</x-ui.partials.links>
+            <x-ui.partials.links href="#">Newsletter</x-ui.partials.links>
         </div>
     </x-ui.mobile.menu>
 </header>
