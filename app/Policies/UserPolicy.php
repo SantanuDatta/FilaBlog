@@ -9,7 +9,7 @@ class UserPolicy
 {
     public function before(User $user): bool
     {
-        if ($user->role_id === Role::IS_ADMIN) {
+        if ($user->role->name === Role::IS_ADMIN) {
             return true;
         }
     }

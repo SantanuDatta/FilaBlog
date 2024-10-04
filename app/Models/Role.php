@@ -22,11 +22,11 @@ class Role extends Model
         'description',
     ];
 
-    public const IS_ADMIN = 1;
+    const IS_ADMIN = 'admin';
 
-    public const IS_BLOGGER = 2;
+    const IS_BLOGGER = 'blogger';
 
-    public const IS_READER = 3;
+    const IS_READER = 'reader';
 
     public function users(): HasMany
     {
